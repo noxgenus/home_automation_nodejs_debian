@@ -1,0 +1,1183 @@
+<html>
+<head>
+<title>NODEJS HOME AUTOMATIONS V1.4</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    
+
+<link rel="manifest" href="manifest.json">
+
+      <link rel="icon" sizes="192x192" href="../data/img/homescreen/192.png">
+      <link rel="icon" sizes="128x128" href="../data/img/homescreen/128.png">
+
+
+<style>
+
+
+
+*{ 
+margin:0; 
+padding:0; 
+}
+@font-face {
+font-family: 'berthold_akzidenz_groteskCn';
+src: url('../data/fonts/akzidenzgroteskbe-cn-webfont.eot');
+src: url('../data/fonts/akzidenzgroteskbe-cn-webfont.eot?#iefix') format('embedded-opentype'),
+url('../data/fonts/akzidenzgroteskbe-cn-webfont.woff') format('woff'),
+url('../data/fonts/akzidenzgroteskbe-cn-webfont.ttf') format('truetype'),
+url('../data/fonts/akzidenzgroteskbe-cn-webfont.svg#berthold_akzidenz_groteskCn') format('svg');
+font-weight: normal;
+font-style: normal;
+}
+
+  @font-face {
+      font-family: 'weather';
+      src: url('../data/fonts/artill_clean_icons-webfont.eot');
+      src: url('../data/fonts/artill_clean_icons-webfont.eot?#iefix') format('embedded-opentype'),
+           url('../data/fonts/artill_clean_icons-webfont.woff2') format('woff2'),
+           url('../data/fonts/artill_clean_icons-webfont.woff') format('woff'),
+           url('../data/fonts/artill_clean_icons-webfont.ttf') format('truetype'),
+           url('../data/fonts/artill_clean_icons-webfont.svg#artill_clean_weather_iconsRg') format('svg');
+      font-weight: normal;
+      font-style: normal;
+
+  }
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+margin:0;
+padding:0;
+border:0;
+outline:0;
+font-size:100%;
+vertical-align:baseline;
+background:transparent;
+}
+html,
+body {
+background:#151515;
+color:#c5c5c5;
+width:100%;
+height:100%;
+}
+body {
+font-family: 'berthold_akzidenz_groteskCn';
+font-style: normal;
+font-size: 62.5%;
+overflow-y: auto;
+letter-spacing: 0.08em;
+background:transparent;
+text-align:left;
+}
+#container {
+margin:0;
+padding: 5px 5px 0 5px;
+border:0;
+outline:0;
+width:100%;
+height:auto;
+display:block;
+box-sizing: border-box;
+/*max-width:810px;*/
+}
+#topholder {
+width:100%;
+display:block;
+margin:0;
+padding:0;
+border:0;
+position:relative;
+box-sizing: border-box;
+}
+#topholder:after {
+clear:both;
+}
+#holder {
+width:100%;
+display:block;
+background:#151515;
+position:relative;
+margin:0;
+padding:0;
+border:0;
+box-sizing: border-box;
+}
+#holdermotion, #holderweather {
+width:100%;
+display:none;
+background:#151515;
+position:relative;
+margin:0;
+padding:0;
+border:0;
+box-sizing: border-box;
+}
+img{
+margin:0;
+padding:0;
+border:0;
+outline:0;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-o-user-select: none;
+user-select: none;
+}
+.clearall{
+clear:both;
+}
+.noshow {
+opacity: 0;
+display:none;
+}
+
+h1 { 
+color: #c5c5c5;
+font-size: 1.5em;
+line-height: 1.0em;
+font-weight: normal;
+margin: 0px;
+text-transform:uppercase;
+}
+.prefix{ 
+color: #4292f4;
+float:left;
+margin-right: 10px;
+}
+.green {
+color: #0fd600;
+}
+.darkgreen {
+color: #0a8c01;
+}
+.orange {
+color: #ff7200;
+}
+.white {
+color: #fff;
+}
+h2 { 
+color: #c5c5c5;
+font-size: 2.5em;
+line-height: 1.0em;
+font-weight: normal;
+margin: 0px;
+text-transform:uppercase;
+}
+
+.butt { 
+margin: 0px;
+width:194px;
+height: 100px;
+font-size: 2em;
+line-height: 100px;
+padding:0;
+border:0;
+cursor: pointer !important;
+margin:0px 5px 5px 0px;
+display:block;
+float:left;
+outline:0;
+background:#bb1313 url('../data/img/corner.png') no-repeat top right;
+text-align:center;
+}
+
+.stream { 
+margin: 0px;
+width:393px;
+height: 205px;
+padding:0;
+border:2px solid #4292f4;
+cursor: none !important;
+margin:0px 5px 5px 0px;
+display:block;
+float:left;
+outline:0;
+background-color:#007f8a;
+text-align:center;
+box-sizing: border-box;
+}
+
+.stream img { 
+width:100%;
+height: 100%;
+padding:0;
+border:0;
+cursor: none !important;
+margin:0;
+display:block;
+outline:0;
+background-color:#007f8a;
+text-align:center;
+-webkit-touch-callout: none !important;
+-webkit-user-select: none !important;
+-khtml-user-select: none !important;
+-moz-user-select: none !important;
+-ms-user-select: none !important;
+user-select: none !important;
+}
+
+#feedbackholder, #feedbackholderR, #feedbackholderM, #feedbackholderOpenClose, #feedbackholderOpenCloseWeather {
+display:block;
+width:100%;
+padding:10px;
+margin:0 0 5px 0;
+border:2px solid #4292f4;
+box-sizing: border-box;
+font-size: 2em;
+line-height: 1.0em;
+font-weight: normal;
+text-transform:uppercase;
+color: #c5c5c5;
+background: #222;
+}
+#gasalarm, #motionOpen, #motionClose, #weatherOpen, #weatherClose {
+display:block;
+width:100%;
+height:30px;
+}
+
+#feedbackholder {
+display:block;
+width:60%;
+float: left;
+}
+#feedbackholderM {
+display:block;
+width:16%;
+float: right;
+border-left:none;
+text-align: center;
+font-size: 2.5em;
+line-height: 40px;
+box-sizing: border-box;
+padding:5px;
+}
+#feedbackholderR {
+display:block;
+width:25%;
+float: right;
+border-left:none;
+text-align: center;
+}
+#feedbackholderOpenClose, #feedbackholderOpenCloseWeather {
+display:block;
+width:12%;
+float: right;
+border-left:none;
+text-align: center;
+}
+#feedbackholderR h1{
+color: #ff7200;
+}
+
+#motionOpen, #weatherOpen {
+background-color: #00b235;
+font-size: 0.6em;
+line-height: 30px;
+}
+.motion, .weather {
+  background-color: #888;
+}
+
+.values {
+background-color: #222;
+color: #ccc;
+margin:5px;
+font-size: 2.0em;
+}
+
+
+
+
+@media screen and (max-width: 800px) {
+
+    body {
+    font-family: 'berthold_akzidenz_groteskCn';
+    font-style: normal;
+    font-size: 62.5%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    letter-spacing: 0.08em;
+    background:transparent;
+    text-align:left;
+    cursor: none !important;
+       -webkit-touch-callout: none !important;
+       -webkit-user-select: none !important;
+       -khtml-user-select: none !important;
+       -moz-user-select: none !important;
+       -ms-user-select: none !important;
+       user-select: none !important;
+    }
+    #container {
+    margin:0;
+    padding: 5px 4px 0 4px;
+    border:0;
+    outline:0;
+    width:800px;
+    height:auto;
+    display:block;
+    cursor: none !important;
+    box-sizing: border-box;
+    }
+    .stream { 
+    margin: 0px;
+    width:393px;
+    height: 205px;
+    padding:0;
+    border:0;
+    cursor: none !important;
+    margin:0px 0px 5px 5px;
+    display:block;
+    float:left;
+    outline:0;
+    background-color:#007f8a;
+    text-align:center;
+       -webkit-touch-callout: none !important;
+       -webkit-user-select: none !important;
+       -khtml-user-select: none !important;
+       -moz-user-select: none !important;
+       -ms-user-select: none !important;
+       user-select: none !important;
+    }
+    .stream img { 
+    margin: 0px;
+    width:100%;
+    height: 100%;
+    padding:0;
+    border:0;
+    cursor: none !important;
+    margin:0;
+    display:block;
+    outline:0;
+    background-color:#007f8a;
+    text-align:center;
+       -webkit-touch-callout: none !important;
+       -webkit-user-select: none !important;
+       -khtml-user-select: none !important;
+       -moz-user-select: none !important;
+       -ms-user-select: none !important;
+       user-select: none !important;
+    }
+
+    .butt { 
+    margin: 0px;
+    width:194px;
+    height: 100px;
+    font-size: 2em;
+    line-height: 100px;
+    padding:0;
+    border:0;
+    cursor: none !important;
+    margin:0px 5px 5px 0px;
+    display:block;
+    float:left;
+    outline:0;
+    background:#bb1313 url('../data/img/corner.png') no-repeat top right;
+    text-align:center;
+       -webkit-touch-callout: none !important;
+       -webkit-user-select: none !important;
+       -khtml-user-select: none !important;
+       -moz-user-select: none !important;
+       -ms-user-select: none !important;
+       user-select: none !important;
+        }
+
+    .butt:nth-child(4n+4) {
+       margin:0px 0px 5px 0px; 
+    }
+
+    #feedbackholder, #feedbackholderR, #feedbackholderM, #feedbackholderOpenClose, #feedbackholderOpenCloseWeather {
+    display:block;
+    width:100%;
+    padding:8px;
+    margin:0 0px 5px 0;
+    border:2px solid #4292f4;
+    box-sizing: border-box;
+    font-size: 2em;
+    line-height: 1.2em;
+    font-weight: normal;
+    text-transform:uppercase;
+    color: #c5c5c5;
+    background: #222;
+
+    }
+    #gasalarm {
+    display:block;
+    width:100%;
+    height:50px;
+    }
+
+    #feedbackholderM{
+      padding:0;
+    }
+
+
+    #gasalarm, #motionOpen, #motionClose, #weatherOpen, #weatherClose {
+    display:block;
+    width:100%;
+    height:30px;
+    }
+
+    #feedbackholder {
+    display:block;
+    width:60%;
+    float: left;
+    }
+    #feedbackholderM {
+    display:block;
+    width:16%;
+    float: right;
+    border-left:none;
+    text-align: center;
+    font-size: 2.5em;
+    line-height: 36px;
+    box-sizing: border-box;
+    padding:5px;
+    }
+    #feedbackholderR {
+    display:block;
+    width:25%;
+    float: right;
+    border-left:none;
+    text-align: center;
+    }
+    #feedbackholderOpenClose, #feedbackholderOpenCloseWeather {
+    display:block;
+    width:12%;
+    float: right;
+    border-left:none;
+    text-align: center;
+    }
+    #feedbackholderR h1{
+    color: #ff7200;
+    }
+
+    #motionOpen, #weatherOpen {
+    background-color: #00b235;
+    font-size: 0.6em;
+    line-height: 30px;
+    }
+    .motion, .weather {
+      background-color: #888;
+    }
+
+    .values {
+    background-color: #222;
+    color: #ccc;
+    margin:5px;
+    font-size: 2.0em;
+    }
+
+}
+
+
+@media screen and (max-width: 640px) {
+
+    *{ 
+    margin:0; 
+    padding:0; 
+    -webkit-user-select: none !important;
+    cursor: none !important;
+    }
+
+    body {
+    font-family: 'berthold_akzidenz_groteskCn';
+    font-style: normal;
+    font-size: 62.5%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    letter-spacing: 0.08em;
+    background:transparent;
+    text-align:left;
+    cursor: none;
+
+    }
+    #container {
+    margin:0;
+    padding: 10px 10px 0 10px;
+    border:0;
+    outline:0;
+    width:100%;
+    height:100%;
+    cursor: none !important;
+    display: flex;
+    flex-flow: column;
+    box-sizing: border-box;
+    }
+
+    #topholder {
+    width:100%;
+    display:block;
+    margin:0;
+    padding:0;
+    border:0;
+    box-sizing: border-box;
+    }
+
+    #holder {
+    position:relative;
+    width:100%;
+    flex: 1 1 auto;
+    margin:0;
+    padding:0;
+    border:0;
+    box-sizing: border-box;
+    height:100%;
+    overflow-x:hidden;
+    }
+    #holdermotion, #holderweather {
+    display:none;
+    position:relative;
+    width:100%;
+    flex: 1 1 auto;
+    margin:0;
+    padding:0;
+    border:0;
+    box-sizing: border-box;
+    height:100%;
+    overflow-x:hidden;
+    }
+    img{
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    cursor: none !important;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    }
+
+    .stream { 
+    margin: 0px;
+    width:100%;
+    height: auto;
+    padding:0;
+    border:2px solid #4292f4;
+    cursor: none !important;
+    margin:0 0 10px 0;
+    display:block;
+    outline:0;
+    background-color:#007f8a;
+    text-align:center;
+    box-sizing: border-box;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -khtml-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    }
+
+    .stream img { 
+    margin: 0px;
+    width:100%;
+    height: 100%;
+    padding:0;
+    border:0;
+    cursor: none !important;
+    margin:0;
+    display:block;
+    outline:0;
+    background-color:#007f8a;
+    text-align:center;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -khtml-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    }
+
+    .butt { 
+    margin: 0px;
+    width:100%;
+    height: 70px;
+    font-size: 3em;
+    line-height: 70px;
+    padding:0;
+    border:0;
+    cursor: none !important;
+    margin:0 0 5px 0;
+    display:block;
+    outline:0;
+    background:#bb1313 url('../data/img/cornermob.png') no-repeat top right;
+    text-align:center;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -khtml-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    }
+    .butt:nth-child(4n+4) {
+       margin:0px 0px 5px 0px; 
+    }
+
+    #feedbackholder, #feedbackholderR, #feedbackholderM, #feedbackholderOpenClose, #feedbackholderOpenCloseWeather {
+    display:block;
+    width:100%;
+    padding:5px;
+    margin:0 0 5px 0;
+    border:2px solid #4292f4;
+    box-sizing: border-box;
+    font-size: 1.3em;
+    line-height: 1.0em;
+    font-weight: normal;
+    text-transform:uppercase;
+    color: #c5c5c5;
+    background: #222;
+    height: 52px;
+    z-index: 100;
+    }
+    #feedbackholderR{
+      font-size: 1.2em;
+    }
+    #feedbackholderM{
+      padding:0;
+    }
+
+    #gasalarm, #motionOpen, #motionClose, #weatherOpen, #weatherClose {
+    display:block;
+    width:100%;
+    height:48px;
+    }
+
+
+    #feedbackholder {
+    display:block;
+    width:100%;
+    float: left;
+    }
+    #feedbackholderM {
+    display:block;
+    width:49%;
+    float: right;
+    border-right:none;
+    text-align: center;
+    font-size: 2.5em;
+    line-height: 36px;
+    box-sizing: border-box;
+    padding:5px;
+    }
+    #feedbackholderR {
+    display:block;
+    width:49%;
+    float: right;
+    border-left:none;
+    text-align: center;
+    }
+    #feedbackholderOpenClose, #feedbackholderOpenCloseWeather {
+    display:block;
+    width:25%;
+    float: right;
+    border-left:none;
+    text-align: center;
+    }
+    #feedbackholderR h1{
+    color: #ff7200;
+    }
+
+    #motionOpen, #weatherOpen {
+    background-color: #00b235;
+    font-size: 0.6em;
+    line-height: 40px;
+    height:40px;
+    }
+    .motion, .weather {
+      background-color: #888;
+    }
+
+    .values {
+    background-color: #222;
+    color: #ccc;
+    margin:5px;
+    font-size: 2.0em;
+    }
+
+}
+
+.blink{
+  -webkit-animation: blinkie 1s infinite;  /* Safari 4+ */
+  -moz-animation: blinkie 1s infinite;  /* Fx 5+ */
+  -o-animation: blinkie 1s infinite;  /* Opera 12+ */
+  animation: blinkie 1s infinite;  /* IE 10+, Fx 29+ */
+}
+
+@-webkit-keyframes blinkie {
+  0%, 49% {
+    background-color: #e57e00;
+  }
+  50%, 100% {
+    background-color: #965200;
+  
+  }
+}
+
+
+.dangerWillRobinson{
+  -webkit-animation: danger 0.2s infinite;  /* Safari 4+ */
+  -moz-animation: danger 0.2s infinite;  /* Fx 5+ */
+  -o-animation: danger 0.2s infinite;  /* Opera 12+ */
+  animation: danger 0.2s infinite;  /* IE 10+, Fx 29+ */
+}
+
+@-webkit-keyframes danger {
+  0%, 49% {
+    background-color: #ff0000;
+  }
+  50%, 100% {
+    background-color: #000;
+  
+  }
+}
+
+
+  /* WEATHER SHIT */
+
+  .icon-0:before { content: ":"; }
+  .icon-1:before { content: "p"; }
+  .icon-2:before { content: "S"; }
+  .icon-3:before { content: "Q"; }
+  .icon-4:before { content: "S"; }
+  .icon-5:before { content: "W"; }
+  .icon-6:before { content: "W"; }
+  .icon-7:before { content: "W"; }
+  .icon-8:before { content: "W"; }
+  .icon-9:before { content: "I"; }
+  .icon-10:before { content: "W"; }
+  .icon-11:before { content: "I"; }
+  .icon-12:before { content: "I"; }
+  .icon-13:before { content: "I"; }
+  .icon-14:before { content: "I"; }
+  .icon-15:before { content: "W"; }
+  .icon-16:before { content: "I"; }
+  .icon-17:before { content: "W"; }
+  .icon-18:before { content: "U"; }
+  .icon-19:before { content: "Z"; }
+  .icon-20:before { content: "Z"; }
+  .icon-21:before { content: "Z"; }
+  .icon-22:before { content: "Z"; }
+  .icon-23:before { content: "Z"; }
+  .icon-24:before { content: "E"; }
+  .icon-25:before { content: "E"; }
+  .icon-26:before { content: "3"; }
+  .icon-27:before { content: "a"; }
+  .icon-28:before { content: "A"; }
+  .icon-29:before { content: "a"; }
+  .icon-30:before { content: "A"; }
+  .icon-31:before { content: "6"; }
+  .icon-32:before { content: "1"; }
+  .icon-33:before { content: "6"; }
+  .icon-34:before { content: "1"; }
+  .icon-35:before { content: "W"; }
+  .icon-36:before { content: "1"; }
+  .icon-37:before { content: "S"; }
+  .icon-38:before { content: "S"; }
+  .icon-39:before { content: "S"; }
+  .icon-40:before { content: "M"; }
+  .icon-41:before { content: "W"; }
+  .icon-42:before { content: "I"; }
+  .icon-43:before { content: "W"; }
+  .icon-44:before { content: "a"; }
+  .icon-45:before { content: "S"; }
+  .icon-46:before { content: "U"; }
+  .icon-47:before { content: "S"; }
+
+#weather {
+  font-family: 'berthold_akzidenz_groteskCn';
+    margin: 0 0 0px 0;
+    padding:  0;
+    display:block;
+        transition: all 0.5s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+  }
+  #weather i{
+    font-family: 'weather';
+    font-style: normal;
+  }
+  #weather div.home {
+    margin: 0px auto 0px 0;
+    padding:  0;
+    display:block;
+    width: 20%;
+    text-align: center;
+    float:left;
+  }
+  #weather div.home img {
+  display: block;
+  width: 30%;
+  margin: 12px auto;
+  }
+  #weather div.home p {
+   font-size: 40px;
+  }
+
+  #weather div.today {
+    margin: 0px 0 0px auto;
+    padding:  0;
+    display:block;
+    width: 20%;
+    text-align: center;
+  }
+  #weather div.clear {
+  clear: both;
+  }
+  #weather div.today p {
+   font-size: 40px;
+  }
+
+  #weather div.today i {
+    font-size: 100px;
+    line-height:100px;
+    margin-top:20px;
+  }
+
+  #weather div.weekdays {
+    margin: 50px 0 0 5%;
+    padding: 0;
+    display:block;
+    float:left;
+    width:11%;
+    text-align: center;
+  }
+
+  #weather div.weekdays p {
+   font-size: 40px;
+  }
+  #weather div.weekdays p.small {
+   font-size: 10px;
+  }
+
+  #weather div.weekdays i {
+    font-size: 50px;
+  }
+   
+
+  /* CLOCK SHIT */
+
+  #point { 
+    position:relative; -moz-animation:mymove 1s ease infinite; -webkit-animation:mymove 1s ease infinite; 
+    padding-left:2px;
+    padding-right:2px; }
+
+
+    @-webkit-keyframes mymove {
+    0% {opacity:1.0; text-shadow:0 0 20px #00c6ff;}
+    50% {opacity:0; text-shadow:none; }
+    100% {opacity:1.0; text-shadow:0 0 20px #00c6ff; }  
+    }
+
+
+    @-moz-keyframes mymove {
+    0% {opacity:1.0; text-shadow:0 0 20px #00c6ff;}
+    50% {opacity:0; text-shadow:none; }
+    100% {opacity:1.0; text-shadow:0 0 20px #00c6ff; }  
+    }
+
+
+</style>
+
+<script src="socket.io/socket.io.js"></script>
+
+
+</head>
+<body>
+
+<div id="container">
+
+  <div id="topholder">
+
+    <div id="feedbackholder">
+      <h1 class="prefix">Last status: </h1>
+      <span id="feedback"><h1>No Connection with server</h1></span>
+    </div>
+
+    <div id="feedbackholderM">
+        <span id="hours"> </span>
+                <span id="point">:</span>
+                <span id="min"> </span>
+              <span id="point">:</span>
+        <span id="sec"> </span>
+    </div>
+
+    <div id="feedbackholderOpenClose">
+      <span id="motionOpen" onclick="openMotion();"> cams </span>
+    </div>
+
+    <div id="feedbackholderOpenCloseWeather">
+      <span id="weatherOpen" onclick="openWeather();"> atmosphere </span>
+    </div>
+
+  </div>
+  <div class="clearall"></div>
+
+  <div id="holder">
+
+    <div class="butt" id="switch1" btype="switch" wake="" onclick="relay(this)"> LIGHTS 1 </div>
+    <div class="butt" id="switch2" btype="switch" wake="" onclick="relay(this)"> LIGHTS 2 </div>
+    <div class="butt" id="switch3" btype="switch" wake="" onclick="relay(this)"> LIGHTS 3 </div>
+    <div class="butt" id="switch4" btype="switch" wake="" onclick="relay(this)"> LIGHTS 4 </div>
+
+    <div class="butt" id="switch5" btype="switch" wake="" onclick="relay(this)"> LIGHTS 5 </div>
+    <div class="butt" id="switch6" btype="switch" wake="" onclick="relay(this)"> LIGHTS 6 </div>
+    <div class="butt" id="switch7" btype="switch" wake="" onclick="relay(this)"> LIGHTS 7 </div>
+    <div class="butt" id="switch8" btype="switch" wake="" onclick="relay(this)"> LIGHTS 8 </div>
+
+    <div class="butt" id="wol4" btype="wol" wake="E8-94-F6-68-4D-D6" onclick="relay(this)"> VPN ROUTER </div> 
+    <div class="butt" id="wol1" btype="wol" wake="6C-F0-49-E6-73-EB" onclick="relay(this)"> WORKSTATION 1</div> 
+    <div class="butt" id="wol2" btype="wol" wake="00-1C-C0-A2-66-EA" onclick="relay(this)"> WORKSTATION 2 </div> 
+    <div class="butt" id="wol3" btype="wol" wake="00-1C-C0-A2-66-CD" onclick="relay(this)"> WORKSTATION 3 </div>
+    <div class="butt" id="wol5" btype="wol" wake="B8-27-EB-28-E2-2E" onclick="relay(this)"> FILE SERVER </div>
+    <div class="butt" id="wol6" btype="wol" wake="E8-AB-FA-2D-28-3A" onclick="relay(this)"> NXGCAM </div>
+
+
+
+  </div>
+
+  <div id="holderweather">
+
+    <div class="values" id="internaltemp" > --- </div>
+
+  </div>
+
+  <div id="holdermotion">
+
+<!--     <img style="display:block;position:fixed;bottom:0;right:0;width:100%;height:100%;z-index:-2;" src='http://10.0.0.9/11' /> -->
+
+
+    <!-- <div class="butt motion" id="motion1" > Motion Room 1 </div>
+    <div class="butt motion" id="motion2" > Motion Room 2 </div> -->
+
+  </div>
+
+</div>
+
+<script>
+
+// CONNECT
+var socket = io.connect();
+var Feedback = document.getElementById("feedback");
+var TempHumid = document.getElementById("internaltemp");
+
+
+// OPEN/CLOSE MOTION FLOORMAP
+function openWeather(){
+    var div = document.getElementById("holder");
+    if (div.style.display !== "none") {
+      div.style.display = "none";
+      document.getElementById('holderweather').style.display = "block";
+      document.getElementById('holdermotion').style.display = "none";
+      document.getElementById('weatherOpen').style.backgroundColor = "#e57e00";
+      document.getElementById('weatherOpen').classList.remove("dangerWillRobinson");
+    } else {
+        div.style.display = "block";
+      document.getElementById('holderweather').style.display = "none";
+      document.getElementById('holdermotion').style.display = "none";
+      document.getElementById('weatherOpen').style.backgroundColor = "#00b235";
+      document.getElementById('motionOpen').style.backgroundColor = "#00b235";
+      document.getElementById('weatherOpen').classList.remove("dangerWillRobinson");
+    }
+  }
+
+// OPEN/CLOSE WEATHER
+function openMotion(){
+    var div = document.getElementById("holder");
+    if (div.style.display !== "none") {
+      div.style.display = "none";
+      document.getElementById('holdermotion').style.display = "block";
+      document.getElementById('holderweather').style.display = "none";
+      document.getElementById('motionOpen').style.backgroundColor = "#e57e00";
+    } else {
+        div.style.display = "block";
+      document.getElementById('holdermotion').style.display = "none";
+      document.getElementById('holderweather').style.display = "none";
+      document.getElementById('weatherOpen').style.backgroundColor = "#00b235";
+      document.getElementById('motionOpen').style.backgroundColor = "#00b235";
+    }
+  }
+
+// EMIT ID TO BACKEND
+function relay(obj){
+    var buttonid = obj.id;
+    var buttontype = obj.getAttribute("btype");
+    var buttonwake = obj.getAttribute("wake");
+    socket.emit('relaycmd', {id: buttonid, type: buttontype, wake: buttonwake});
+  }
+
+
+
+
+// BUTTON ON/OFF STATUS
+
+  socket.on('relayCallback', function (data) {
+
+    var id = data.id
+        var active = data.active
+        var type = data.type
+        var received = 0;
+
+
+  // ON
+
+        if (active == 1) {
+
+              // WAKE ON LAN BUTTONS
+                if (type == 'wol') {
+                  document.getElementById(type + id).style.backgroundColor = "#0097b2";
+                  document.getElementById(type + id).classList.remove("blink");
+                  Feedback.innerHTML = "<h1>MACHINE ONLINE</h1>";
+              // SERIAL SWITCH BUTTONS
+                } else if (type == 'switch') {
+                  document.getElementById(type + id).style.backgroundColor = "#9348a9";
+                  document.getElementById(type + id).classList.remove("blink");
+                  Feedback.innerHTML = "<h1>LIGHTS "+id+" ON</h1>";
+
+                  //clear timeout
+                  received = 1;
+
+              // GAS SENSORS
+                } else if (type == 'gas') {
+                  //document.getElementById('gasalarm').style.backgroundColor = "#bb1313";
+                  Feedback.innerHTML = "<h1>Gas Detected!</h1>";
+              // MOTION SENSORS
+                } else if (type == 'motion') {
+                  document.getElementById(type + id).style.backgroundColor = "#bb1313";
+                  document.getElementById('motionOpen').style.backgroundColor = "#bb1313";
+                  Feedback.innerHTML = "<h1>Motion Detected!</h1>";
+
+                } else {
+              // ELSE ERROR
+                  Feedback.innerHTML = "<h1>UNKNOWN "+id+" ERROR!</h1>";
+                }
+
+// OFF
+
+      } else if (active == 0) {
+          
+              // WAKE ON LAN BUTTONS
+                if (type == 'wol') {
+                  Feedback.innerHTML = "<h1>MACHINE OFFLINE</h1>";
+                  document.getElementById(type + id).style.backgroundColor = "#bb1313";
+                  document.getElementById(type + id).classList.remove("blink");
+              // SERIAL SWITCH BUTTONS
+                } else if (type == 'switch') {
+                  Feedback.innerHTML = "<h1>LIGHTS "+id+" OFF</h1>";
+                  document.getElementById(type + id).style.backgroundColor = "#bb1313";
+                  document.getElementById(type + id).classList.remove("blink");
+              // GAS SENSORS
+                } else if (type == 'gas') {
+                  document.getElementById('gasalarm').style.backgroundColor = "#00b235";
+              // MOTION SENSORS
+                } else if (type == 'motion') {
+                  document.getElementById(type + id).style.backgroundColor = "#00b235";
+                  //document.getElementById('motionOpen').style.backgroundColor = "#00b235";
+              // ELSE ERROR
+                } else {
+                  Feedback.innerHTML = "<h1>UNKNOWN "+id+" ERROR!</h1>";
+                }
+
+
+
+// TEMP BOOTING WAKEONLAN/SERIAL WAIT STATUS UNTIL CALLBACK OR PING IS RECEIVED
+
+      } else if (active == 3) {     // WAKEONLAN
+
+            Feedback.innerHTML = "<h1>MACHINE BOOTING</h1>";
+            document.getElementById(type + id).style.backgroundColor = "#e57e00";
+            document.getElementById(type + id).classList.add("blink");
+                  // IF NO SIGNAL RETURNS, INDICATE ID IS DOWN
+                  setTimeout(function(){ 
+                     if (document.getElementById(type + id).classList.contains("blink")){
+                        Feedback.innerHTML = "<h1>MACHINE " + id + " IS NOT RESPONDING!</h1>";
+                        document.getElementById(type + id).classList.remove("blink");
+                        document.getElementById(type + id).style.backgroundColor = "#700000";
+                      }
+                    }, 60000); // pc boot time?
+
+
+      } else if (active == 4) {     // SERIAL
+
+            Feedback.innerHTML = "<h1>LIGHTS " + id + " </h1>";
+            document.getElementById(type + id).classList.add("blink");
+                  // IF NO SIGNAL RETURNS, INDICATE ID IS DOWN
+                  setTimeout(function(){ 
+                    if (document.getElementById(type + id).classList.contains("blink")){
+                        Feedback.innerHTML = "<h1>LIGHTS " + id + " IS DOWN!</h1>";
+                        document.getElementById(type + id).classList.remove("blink");
+                        document.getElementById(type + id).style.backgroundColor = "#700000";
+                      }
+                    }, 10000);
+
+      }
+
+
+      // TEMP
+      if (type == 'temp') {
+
+          var temp = data.id
+          var humid = data.active
+
+
+          // TEMP/HUMID SENSOR
+          TempHumid.innerHTML = "<h1>TEMP: " + temp + "°C / HUMID: " + humid + "%</h1>";
+
+          if (temp > 28) {
+            document.getElementById('weatherOpen').style.backgroundColor = "#bb1313";
+            document.getElementById('weatherOpen').classList.add("dangerWillRobinson");
+           } else if (temp < 28) {
+            document.getElementById('weatherOpen').style.backgroundColor = "#e57e00";
+            document.getElementById('weatherOpen').classList.remove("dangerWillRobinson");
+           }
+
+        }
+
+
+  });
+
+
+
+// TIME CLOCK SHIT
+
+
+      var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]; 
+      var dayNames= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+      var newDate = new Date();
+        
+        newDate.setDate(newDate.getDate());
+
+        setInterval( function() {
+          var seconds = new Date().getSeconds();
+          document.getElementById("sec").innerHTML = (( seconds < 10 ? "0" : "" ) + seconds);
+          },1000);
+          
+        setInterval( function() {
+          var minutes = new Date().getMinutes();
+          document.getElementById("min").innerHTML = (( minutes < 10 ? "0" : "" ) + minutes);
+            },1000);
+          
+        setInterval( function() {
+          var hours = new Date().getHours();
+          document.getElementById("hours").innerHTML = (( hours < 10 ? "0" : "" ) + hours);
+            }, 1000);
+
+
+    
+</script>
+</body>
+</html>

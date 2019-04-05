@@ -1,0 +1,35 @@
+{
+  "name": "homeautomation",
+  "version": "1.0.0",
+  "description": "NodeJS wired and wireless home automation system",
+  "main": "homeauto.js",
+  "dependencies": {
+    "aplay": "^1.2.0",
+    "express": "^4.16.4",
+    "ping": "^0.2.2",
+    "serialport": "^7.1.4",
+    "socket.io": "^2.2.0",
+    "wake_on_lan": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noxgenus/home_automation_nodejs.git"
+  },
+  "keywords": [
+    "Home",
+    "automation",
+    "relay",
+    "serial",
+    "wireless"
+  ],
+  "author": "V. Winters",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/noxgenus/home_automation_nodejs/issues"
+  },
+  "homepage": "https://github.com/noxgenus/home_automation_nodejs#readme"
+}
